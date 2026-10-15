@@ -325,13 +325,16 @@
           /* 工作：每个公司一张卡片，含（实习）标记、角色、时间、bullet */
           const list = items.map(e => {
             const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
-            const headBits = [esc(e.company)];
-            if(e.internship) headBits.push('<span class="exp-tag">（实习）</span>');
-            if(e.role) headBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
-            if(e.time) headBits.push(`<span class="exp-when">${esc(e.time)}</span>`);
+            const mainBits = [];
+            mainBits.push(esc(e.company) + (e.internship ? '<span class="exp-tag">（实习）</span>' : ''));
+            if(e.role) mainBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
+            const timeHtml = e.time ? `<span class="exp-when">${esc(e.time)}</span>` : '';
             return `
               <div class="exp-card">
-                <div class="exp-card-head">${headBits.join(' · ')}</div>
+                <div class="exp-card-head">
+                  <span class="exp-card-main">${mainBits.join(' · ')}</span>
+                  ${timeHtml}
+                </div>
                 ${bullets ? `<ul class="exp-bullets">${bullets}</ul>` : ''}
               </div>
             `;
@@ -351,12 +354,15 @@
             if(!sub.length) continue;
             any = true;
             const list = sub.map(e => {
-              const headBits = [esc(e.company)];
-              if(e.role) headBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
-              if(e.time) headBits.push(`<span class="exp-when">${esc(e.time)}</span>`);
+              const mainBits = [esc(e.company)];
+              if(e.role) mainBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
+              const timeHtml = e.time ? `<span class="exp-when">${esc(e.time)}</span>` : '';
               return `
                 <div class="exp-card">
-                  <div class="exp-card-head">${headBits.join(' · ')}</div>
+                  <div class="exp-card-head">
+                    <span class="exp-card-main">${mainBits.join(' · ')}</span>
+                    ${timeHtml}
+                  </div>
                   ${e.location ? `<div class="exp-card-loc">${esc(e.location)}</div>` : ''}
                 </div>
               `;
