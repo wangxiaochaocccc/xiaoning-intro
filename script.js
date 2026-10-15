@@ -306,7 +306,7 @@
             </div>
           `;
         }).join('');
-      modalBody.innerHTML = `<h3>个人项目 · 实践作品</h3>${list || '<p>暂无内容</p>'}`;
+      modalBody.innerHTML = `<h3>项目经历</h3>${list || '<p>暂无内容</p>'}`;
     }
     else if(cardKey === 'experience'){
       const all = (data.experience||[]).filter(e => e.company && e.company !== '待填写');

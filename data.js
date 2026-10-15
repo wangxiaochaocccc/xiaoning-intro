@@ -53,7 +53,7 @@ window.RESUME = {
   projects: [
     {
       title: "《新媒体环境下微视频的制作与传播分析》",
-      role: "期刊论文",
+      role: "《新媒体研究》/期刊论文",
       time: "2019.03",
       desc: "在新媒体时代下，对微视频制作进行简单介绍、分析微视频传播方式的分类以及未来发展趋势，旨在通过讨论新媒体环境下微视频的相关问题，促进行业不断发展前进。",
       stack: ["学术写作", "新媒体研究"],
@@ -66,17 +66,17 @@ window.RESUME = {
       time: "2019.06 — 2019.09",
       desc: "在全国计算机设计大赛中，主要负责撰写视频脚本、协调沟通演员、现场拍摄及后期剪辑，并作为主要代表参加比赛，向评委老师现场阐述作品。荣获校级一等奖、省级一等奖以及国家级二等奖。",
       stack: ["视频脚本", "现场拍摄", "后期剪辑", "现场答辩"],
-      link: "",
-      linkLabel: ""
+      link: "https://pan.baidu.com/s/1VdUEpGj1pkgweca8H-0BgQ?pwd=2inx",
+      linkLabel: "观看视频"
     },
     {
-      title: "中国新闻出版广电报 · 评论",
-      role: "评论作者",
-      time: "研究生阶段",
-      desc: "在国家级媒体《中国新闻出版广电报》发表评论文章。",
+      title: "《警惕流量陷阱，别让孩子沦为'数字童工'》",
+      role: "《中国新闻出版广电报》/新闻评论",
+      time: "2026.07",
+      desc: "当下流量变现驱动下，部分短视频平台出现把儿童当作牟利工具的“数字童工”现象，加剧未成年人身心健康受损、隐私泄露、价值观扭曲等问题。本文剖析该乱象产生的多重诱因，并从家庭教育、制度监管、平台算法、公众媒介素养层面提出多方协同共治路径，呼吁守护未成年人纯真的网络童年。",
       stack: ["新闻评论", "时事分析"],
-      link: "",
-      linkLabel: ""
+      link: "assets/A6.pdf",
+      linkLabel: "查看全文"
     }
   ],
 
@@ -191,7 +191,7 @@ window.RESUME = {
 /* ============ 卡片元数据 ============ */
 window.CARDS = [
   { no: "01", title: "基本信息",   sub: "PROFILE",         key: "profile",    state: "char-1" },
-  { no: "02", title: "项目经验",   sub: "PROJECTS",        key: "projects",   state: "char-2" },
+  { no: "02", title: "项目经历",   sub: "PROJECTS",        key: "projects",   state: "char-2" },
   { no: "03", title: "工作经历",   sub: "WORK EXPERIENCE", key: "experience", state: "char-3" },
   { no: "04", title: "奖项",       sub: "HONORS",          key: "honors",     state: "char-4" }
 ];
