@@ -312,7 +312,7 @@
       const all = (data.experience||[]).filter(e => e.company && e.company !== '待填写');
       const groups = [
         { key: '校园', label: '校园经历' },
-        { key: '工作', label: '实习经历' }
+        { key: '工作', label: '工作经历' }
       ];
       let html = '';
       let hasAny = false;
@@ -322,15 +322,16 @@
         hasAny = true;
 
         if(g.key === '工作'){
-          /* 实习：每个公司一个板块，无框，直接分点 +（实习）后缀 */
+          /* 工作：每个公司一张卡片，含（实习）标记、角色、时间、bullet */
           const list = items.map(e => {
             const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
-            const headBits = [esc(e.company), '<span class="exp-tag">（实习）</span>'];
+            const headBits = [esc(e.company)];
+            if(e.internship) headBits.push('<span class="exp-tag">（实习）</span>');
             if(e.role) headBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
             if(e.time) headBits.push(`<span class="exp-when">${esc(e.time)}</span>`);
             return `
-              <div class="exp-item">
-                <div class="exp-item-head">${headBits.join(' · ')}</div>
+              <div class="exp-card">
+                <div class="exp-card-head">${headBits.join(' · ')}</div>
                 ${bullets ? `<ul class="exp-bullets">${bullets}</ul>` : ''}
               </div>
             `;
@@ -338,38 +339,63 @@
           html += `<h3 class="exp-group">${g.label}</h3><div class="exp-list">${list}</div>`;
         }
         else{
-          /* 校园：保留原来的时间线卡片样式 */
-          const list = items.map(e => {
-            const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
-            const loc = e.location ? ` · ${esc(e.location)}` : '';
-            return `
-              <li>
-                <div class="ti-head">
-                  <span class="ti-role">${esc(e.company)}</span>
-                  ${e.role ? `<span>${esc(e.role)}</span>` : ''}
-                  ${e.time ? `<span class="ti-time">${esc(e.time)}${loc}</span>` : ''}
+          /* 校园：跟 03 一样的卡片风格，按 研究生 / 本科 分组 */
+          const phaseOrder = [
+            { key: '研究生', label: '研究生阶段' },
+            { key: '本科',   label: '本科阶段'   }
+          ];
+          let inner = '';
+          let any = false;
+          for(const ph of phaseOrder){
+            const sub = items.filter(e => (e.phase||'') === ph.key);
+            if(!sub.length) continue;
+            any = true;
+            const list = sub.map(e => {
+              const headBits = [esc(e.company)];
+              if(e.role) headBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
+              if(e.time) headBits.push(`<span class="exp-when">${esc(e.time)}</span>`);
+              return `
+                <div class="exp-card">
+                  <div class="exp-card-head">${headBits.join(' · ')}</div>
+                  ${e.location ? `<div class="exp-card-loc">${esc(e.location)}</div>` : ''}
                 </div>
-                ${bullets ? `<div class="ti-body"><ul>${bullets}</ul></div>` : ''}
-              </li>
-            `;
-          }).join('');
-          html += `<h3 class="exp-group">${g.label}</h3><ul class="timeline">${list}</ul>`;
+              `;
+            }).join('');
+            inner += `<div class="campus-phase"><h4 class="campus-phase-title">${ph.label}</h4><div class="exp-list">${list}</div></div>`;
+          }
+          html += `<h3 class="exp-group">${g.label}</h3>${any ? inner : ''}`;
         }
       }
       modalBody.innerHTML = hasAny ? html : '<p>暂无内容</p>';
     }
     else if(cardKey === 'honors'){
       const list = (data.honors||[])
-        .filter(h => h.name && h.name !== '待填写')
-        .map(h => `
-          <div class="honor">
-            <div>
-              <div class="honor-name">${esc(h.name)}</div>
-              ${h.org ? `<div style="font-size:12px;color:var(--muted)">${esc(h.org)}</div>` : ''}
+        .filter(h => (h.name || h.title) && (h.name || h.title) !== '待填写')
+        .map(h => {
+          /* 多奖项卡片：title + awards 列表 */
+          if(h.title && Array.isArray(h.awards)){
+            const items = h.awards.map(a => `<li>${esc(a)}</li>`).join('');
+            return `
+              <div class="honor-card honor-card--multi">
+                <div class="honor-card-head">
+                  <span class="honor-card-title">${esc(h.title)}</span>
+                  ${h.time ? `<span class="honor-card-time">${esc(h.time)}</span>` : ''}
+                </div>
+                <ul class="honor-card-awards">${items}</ul>
+              </div>
+            `;
+          }
+          /* 普通奖项卡片 */
+          return `
+            <div class="honor-card">
+              <div class="honor-card-head">
+                <span class="honor-card-title">${esc(h.name || '')}</span>
+                ${h.time ? `<span class="honor-card-time">${esc(h.time)}</span>` : ''}
+              </div>
+              ${h.org ? `<div class="honor-card-org">${esc(h.org)}</div>` : ''}
             </div>
-            ${h.time ? `<div class="honor-time">${esc(h.time)}</div>` : ''}
-          </div>
-        `).join('');
+          `;
+        }).join('');
       modalBody.innerHTML = `<h3>竞赛奖项 · 荣誉证书</h3>${list || '<p>暂无内容</p>'}`;
     }
     else{

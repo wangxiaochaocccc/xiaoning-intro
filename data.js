@@ -23,7 +23,7 @@ window.RESUME = {
     /* 顶部大卡片：证件照 + 名字 + 联系方式 */
     basic: [
       { label: "姓名",   value: "李宁",                      type: "text" },
-      { label: "MBTI",   value: "ESFJ",                      type: "text" },
+      { label: "籍贯",   value: "辽宁",                      type: "text" },
       { label: "联系电话", value: "13051663892",            type: "tel"  },
       { label: "电子邮箱", value: "lixiaolingllll@163.com", type: "mail" }
     ],
@@ -57,8 +57,8 @@ window.RESUME = {
       time: "2019.03",
       desc: "在新媒体时代下，对微视频制作进行简单介绍、分析微视频传播方式的分类以及未来发展趋势，旨在通过讨论新媒体环境下微视频的相关问题，促进行业不断发展前进。",
       stack: ["学术写作", "新媒体研究"],
-      link: "",
-      linkLabel: ""
+      link: "assets/新媒体环境下微视频的制作与传播分析.pdf",
+      linkLabel: "查看全文"
     },
     {
       title: "《画中缘》数媒微电影",
@@ -85,6 +85,7 @@ window.RESUME = {
     /* === 校园经历 === */
     {
       category: "校园",
+      phase: "研究生",
       company: "新闻传播学院研究生会",
       role: "副主席",
       time: "2026.09 — 至今",
@@ -93,6 +94,7 @@ window.RESUME = {
     },
     {
       category: "校园",
+      phase: "研究生",
       company: "新闻传播学院研究生会",
       role: "组宣部干事",
       time: "2025.09 — 2026.09",
@@ -101,6 +103,7 @@ window.RESUME = {
     },
     {
       category: "校园",
+      phase: "本科",
       company: "沈阳师范大学新闻中心电视台",
       role: "栏目编导",
       time: "2016.09 — 2018.06",
@@ -112,6 +115,7 @@ window.RESUME = {
     },
     {
       category: "校园",
+      phase: "本科",
       company: "学生会女工部",
       role: "部员",
       time: "2016.09 — 2017.06",
@@ -126,7 +130,7 @@ window.RESUME = {
       category: "工作",
       company: "中国农业电影电视中心",
       role: "新媒体运营",
-      time: "2024.05 — 至今",
+      time: "2024.05 — 2025.09",
       location: "",
       bullets: [
         "主要负责图像处理、短视频剪辑制作、新闻稿件撰写、公众号推文排版等工作",
@@ -154,6 +158,7 @@ window.RESUME = {
       role: "短视频编导",
       time: "2019.11 — 2020.01",
       location: "",
+      internship: true,
       bullets: [
         "参与金鸡百花电影节及《通灵妃》漫改番项目的宣传推广工作",
         "负责运营抖音、微视等短视频矩阵账号，包括选题策划及视频剪辑",
@@ -167,6 +172,7 @@ window.RESUME = {
       role: "新媒体运营",
       time: "2019.07 — 2019.10",
       location: "",
+      internship: true,
       bullets: [
         "主要负责 @微博教育 官方账号的运营工作，账号日均阅读量 100w+",
         "参与策划、执行的全站话题活动 #暑假来了#，阅读量达 30 亿+、讨论量 500w+",
@@ -177,13 +183,15 @@ window.RESUME = {
 
   /* ============ 04 奖项 / HONORS ============ */
   honors: [
-    { name: "国家奖学金",     org: "教育部",                     time: "研究生阶段" },
-    { name: "优秀共青团员",   org: "学校团委",                   time: "研究生阶段" },
-    { name: "一等学业奖学金",  org: "学校",                       time: "研究生阶段" },
-    { name: "全国计算机设计大赛 · 国家级二等奖", org: "全国计算机设计大赛组委会", time: "2019" },
-    { name: "《画中缘》校级一等奖 / 省级一等奖", org: "全国计算机设计大赛", time: "2019" },
-    { name: "校媒「优秀干部」",  org: "学校",                       time: "" },
-    { name: "社会实践「先进个人」", org: "学校",                       time: "" }
+    {
+      title: "全国计算机设计大赛",
+      awards: ["国家级二等奖", "《画中缘》校级一等奖", "《画中缘》省级一等奖"],
+      time: "2019"
+    },
+    { name: "校级一等学业奖学金",                                    time: "研究生阶段" },
+    { name: "优秀共青团员",                                          time: "研究生阶段" },
+    { name: "校媒「优秀干部」",                                      time: "" },
+    { name: "社会实践「先进个人」",                                  time: "" }
   ]
 
 };
