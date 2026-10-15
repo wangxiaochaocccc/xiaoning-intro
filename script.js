@@ -312,7 +312,7 @@
       const all = (data.experience||[]).filter(e => e.company && e.company !== '待填写');
       const groups = [
         { key: '校园', label: '校园经历' },
-        { key: '工作', label: '实习与正式工作' }
+        { key: '工作', label: '实习经历' }
       ];
       let html = '';
       let hasAny = false;
@@ -320,21 +320,41 @@
         const items = all.filter(e => (e.category||'') === g.key);
         if(!items.length) continue;
         hasAny = true;
-        const list = items.map(e => {
-          const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
-          const loc = e.location ? ` · ${esc(e.location)}` : '';
-          return `
-            <li>
-              <div class="ti-head">
-                <span class="ti-role">${esc(e.company)}</span>
-                ${e.role ? `<span>${esc(e.role)}</span>` : ''}
-                ${e.time ? `<span class="ti-time">${esc(e.time)}${loc}</span>` : ''}
+
+        if(g.key === '工作'){
+          /* 实习：每个公司一个板块，无框，直接分点 +（实习）后缀 */
+          const list = items.map(e => {
+            const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
+            const headBits = [esc(e.company), '<span class="exp-tag">（实习）</span>'];
+            if(e.role) headBits.push(`<span class="exp-role">${esc(e.role)}</span>`);
+            if(e.time) headBits.push(`<span class="exp-when">${esc(e.time)}</span>`);
+            return `
+              <div class="exp-item">
+                <div class="exp-item-head">${headBits.join(' · ')}</div>
+                ${bullets ? `<ul class="exp-bullets">${bullets}</ul>` : ''}
               </div>
-              ${bullets ? `<div class="ti-body"><ul>${bullets}</ul></div>` : ''}
-            </li>
-          `;
-        }).join('');
-        html += `<h3 class="exp-group">${g.label}</h3><ul class="timeline">${list}</ul>`;
+            `;
+          }).join('');
+          html += `<h3 class="exp-group">${g.label}</h3><div class="exp-list">${list}</div>`;
+        }
+        else{
+          /* 校园：保留原来的时间线卡片样式 */
+          const list = items.map(e => {
+            const bullets = (e.bullets||[]).filter(b => b && b !== '待填写').map(b => `<li>${esc(b)}</li>`).join('');
+            const loc = e.location ? ` · ${esc(e.location)}` : '';
+            return `
+              <li>
+                <div class="ti-head">
+                  <span class="ti-role">${esc(e.company)}</span>
+                  ${e.role ? `<span>${esc(e.role)}</span>` : ''}
+                  ${e.time ? `<span class="ti-time">${esc(e.time)}${loc}</span>` : ''}
+                </div>
+                ${bullets ? `<div class="ti-body"><ul>${bullets}</ul></div>` : ''}
+              </li>
+            `;
+          }).join('');
+          html += `<h3 class="exp-group">${g.label}</h3><ul class="timeline">${list}</ul>`;
+        }
       }
       modalBody.innerHTML = hasAny ? html : '<p>暂无内容</p>';
     }
