@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1a1410" />
+<title>李宁 · ABOUT ME · 个人介绍</title>
+<meta name="description" content="李宁的个人介绍 — 个人简介 / 项目经验 / 工作经历 / 奖项" />
+<link rel="preload" as="image" href="assets/cover.png" />
+<link rel="preload" as="image" href="assets/scene-1.png" />
+<link rel="preload" as="image" href="assets/scene-2.png" />
+<link rel="preload" as="image" href="assets/scene-3.png" />
+<link rel="preload" as="image" href="assets/scene-4.png" />
+<link rel="preload" as="video" href="assets/intro.mp4" type="video/mp4" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- 加载页：视频 ready 后淡出 -->
+<div class="loader" id="loader" aria-hidden="false">
+  <div class="loader-inner">
+    <div class="loader-photo-wrap">
+      <svg class="loader-svg" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#d92121"/>
+            <stop offset="100%" stop-color="#ff7a4a"/>
+          </linearGradient>
+        </defs>
+        <circle class="loader-track" cx="100" cy="100" r="92"></circle>
+        <circle class="loader-bar"   cx="100" cy="100" r="92" id="loaderBar"></circle>
+      </svg>
+      <div class="loader-photo">
+        <img src="assets/photo.jpg" alt="李宁" />
+      </div>
+    </div>
+    <div class="loader-brand">
+      <span class="loader-name">李宁</span>
+      <span class="loader-dot">·</span>
+      <span class="loader-sub">ABOUT&nbsp;ME</span>
+    </div>
+    <div class="loader-progress">
+      <div class="loader-num" id="loaderNum">0%</div>
+      <div class="loader-tip" id="loaderTip">正在准备视频…</div>
+    </div>
+  </div>
+</div>
+
+<!-- 视频开场：进入网站时播放，结束后淡出显示主画面 -->
+<div class="intro" id="intro" aria-hidden="true">
+  <video id="introVideo" class="intro-video" autoplay muted playsinline preload="auto">
+    <source src="assets/intro.mp4" type="video/mp4" />
+  </video>
+  <div class="intro-controls">
+    <button class="intro-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="打开声音">
+      <span class="ic-sound-on" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+          <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+        </svg>
+      </span>
+      <span class="ic-sound-off" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <line x1="22" y1="9" x2="16" y2="15"/>
+          <line x1="16" y1="9" x2="22" y2="15"/>
+        </svg>
+      </span>
+      <span class="intro-btn-label" id="soundBtnLabel">打开声音</span>
+    </button>
+    <button class="intro-btn" id="introSkip" type="button" aria-label="跳过开场视频">
+      <span class="intro-btn-label">跳过</span>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 4l10 8-10 8V4z"/>
+        <line x1="19" y1="5" x2="19" y2="19"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- 舞台：图片 + 4 个悬浮/点击热区 -->
+<main class="stage" id="stage" aria-hidden="true">
+
+  <!-- 图片层（cover + 4 个 scene 默认隐藏） -->
+  <div class="scene" id="scene">
+    <img class="scene-img is-active" data-key="cover" src="assets/cover.png" alt="李宁 · ABOUT ME" />
+    <img class="scene-img" data-key="1" src="assets/scene-1.png" alt="" />
+    <img class="scene-img" data-key="2" src="assets/scene-2.png" alt="" />
+    <img class="scene-img" data-key="3" src="assets/scene-3.png" alt="" />
+    <img class="scene-img" data-key="4" src="assets/scene-4.png" alt="" />
+  </div>
+
+  <!-- 4 个卡片热区（基于封面图最终版中卡片的位置，含倾斜角度）
+       4 张卡片呈弧形排列：02/03 较高（接近垂直），01/04 较低（含明显倾斜）。
+       Card 01：左下倾斜 —— 顶边左低右高，底边左低右高
+       Card 02：基本垂直
+       Card 03：基本垂直
+       Card 04：右下倾斜 —— 顶边左高右低，底边左高右低 -->
+  <div class="hotzones" id="hotzones" aria-label="个人介绍分类">
+    <button class="hotzone" data-card="0" data-key="1"
+            style="clip-path:polygon(4.0% 21.0%, 17.0% 17.0%, 17.0% 41.0%, 4.0% 44.0%);"
+            type="button" aria-label="01 基本信息"></button>
+    <button class="hotzone" data-card="1" data-key="2"
+            style="clip-path:polygon(24.0% 5.0%, 43.0% 5.0%, 43.0% 28.0%, 24.0% 28.0%);"
+            type="button" aria-label="02 项目经验"></button>
+    <button class="hotzone" data-card="2" data-key="3"
+            style="clip-path:polygon(48.0% 3.0%, 65.0% 3.0%, 65.0% 25.0%, 48.0% 25.0%);"
+            type="button" aria-label="03 工作经历"></button>
+    <button class="hotzone" data-card="3" data-key="4"
+            style="clip-path:polygon(71.0% 17.0%, 90.0% 21.0%, 90.0% 43.0%, 71.0% 39.0%);"
+            type="button" aria-label="04 奖项"></button>
+  </div>
+
+  <!-- 鼠标坐标显示（仅调试用，正式上线可移除） -->
+  <div class="coord" id="coord" hidden></div>
+</main>
+
+<!-- 详情弹窗 -->
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-mask" data-close="1"></div>
+  <article class="modal-card">
+    <header class="modal-head">
+      <span class="modal-no" id="modalNo">01</span>
+      <h2 class="modal-title" id="modalTitle">基本信息</h2>
+      <button class="modal-close" data-close="1" type="button" aria-label="关闭">✕</button>
+    </header>
+    <div class="modal-body" id="modalBody"></div>
+  </article>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
